@@ -22,15 +22,6 @@ RUN ln -s /usr/bin/microsoft-edge /usr/bin/edge
 # Add zip utility - it comes in very handy
 RUN apt-get update && apt-get install -y zip
 
-# versions of local tools
-RUN echo  " node version:    $(node -v) \n" \
-  "npm version:     $(npm -v) \n" \
-  "yarn version:    $(yarn -v) \n" \
-  "Debian version:  $(cat /etc/debian_version) \n" \
-  "Edge version:    $(edge --version) \n" \
-  "git version:     $(git --version) \n" \
-  "whoami:          $(whoami) \n"
-
 # a few environment variables to make NPM installs easier
 # good colors for most applications
 ENV TERM xterm
@@ -78,11 +69,12 @@ RUN echo "whoami: $(whoami)" \
   && node -p 'module.paths' \
   # should print Cypress version
   # plus Electron and bundled Node versions
+  # and versions of local tools
   && cypress version \
   && echo  " node version:    $(node -v) \n" \
     "npm version:     $(npm -v) \n" \
     "yarn version:    $(yarn -v) \n" \
-    "debian version:  $(cat /etc/debian_version) \n" \
-    "user:            $(whoami) \n" \
-    "chrome:          $(google-chrome --version || true) \n" \
-    "firefox:         $(firefox --version || true) \n"
+    "Debian version:  $(cat /etc/debian_version) \n" \
+    "Edge version:    $(edge --version) \n" \
+    "git version:     $(git --version) \n" \
+    "whoami:          $(whoami) \n"
